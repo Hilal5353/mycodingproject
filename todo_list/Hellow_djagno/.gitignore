@@ -1,0 +1,37 @@
+# .gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+
+
+
+
+# IDE specific
+.vscode/
+.idea/
+
+# Static and media files
+staticfiles/
+media/
+
+# Local settings
+settings_local.py
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Database
+*.db
