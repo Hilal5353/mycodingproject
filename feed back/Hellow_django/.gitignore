@@ -1,0 +1,19 @@
+# Ignore Python files
+*.pyc
+__pycache__/
+
+# Ignore Docker files
+*.log
+docker-compose.override.yml
+docker-compose.yaml~
+*.bak
+*.swp
+
+# Ignore database files
+*.db
+*.sqlite3
+
+# Ignore node modules and frontend build
+node_modules/
+build/
+dist/
