@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Top Wear{% endblock title %}
+{% block main-content %}
+<div class="container my-5">  
+    <div class="row">  
+        <!-- Sidebar -->
+        <div class="col-sm-3">  
+            <div class="list-group shadow-sm">  
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white fw-bold">Anime Shirts</a>  
+                <a href="#" class="list-group-item list-group-item-action">Colored</a>  
+                <a href="#" class="list-group-item list-group-item-action">Popular</a> 
+                <a href="#" class="list-group-item list-group-item-action">Trending</a> 
+            </div>
+        </div>
+        
+        <!-- Products Section -->
+        <div class="col-sm-9">
+            <div class="row">
+                {% for product in topwear %}
+                    <div class="col-sm-4 text-center mb-4">
+                        <a href="{% url 'product-detail' product.id %}" class="text-decoration-none">
+                            <div class="card shadow-sm h-100">
+                                <img src="{{ product.product_image.url }}" alt="{{ product.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark fw-bold">{{ product.title }}</h5>
+                                    <p class="text-success fw-bold">Rs. {{ product.discounted_price }}</p>
+                                    <p class="text-muted text-decoration-line-through">Rs. {{ product.selling_price }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
