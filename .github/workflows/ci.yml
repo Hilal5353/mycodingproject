@@ -1,9 +1,9 @@
-name: Django CI/CD
+name: MyDjango CI/CD
 
 on:
   push:
     branches:
-      - main  # You can change this to any branch you want to trigger on push
+      - main  # Trigger on pushes to the main branch
 
 jobs:
   test:
@@ -25,5 +25,5 @@ jobs:
 
       - name: Run tests
         run: |
-          python manage.py test || echo "Tests failed but workflow continues"
+          python manage.py test || echo "Tests failed, but workflow continues"
         continue-on-error: true
