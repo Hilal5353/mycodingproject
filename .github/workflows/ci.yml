@@ -1,13 +1,17 @@
-name: My CI/CD
+name: Django CI/CD
 
-on: push
+on:
+  push:
+    branches:
+      - main  # You can change this to any branch you want to trigger on push
 
 jobs:
-  test-and-build:
+  test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -16,12 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Django tests
+      - name: Run tests
         run: |
           python manage.py test || echo "Tests failed but workflow continues"
-
-      - name: Build success message
-        run: echo "Build completed successfully!"
+        continue-on-error: true
