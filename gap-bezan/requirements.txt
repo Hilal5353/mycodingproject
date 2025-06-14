@@ -1,0 +1,17 @@
+asgiref==3.8.1
+beautifulsoup4==4.13.4
+certifi==2025.4.26
+Django==4.2.21
+django-bootstrap-v5==1.0.11
+django-bootstrap5==25.1
+django-elasticsearch-dsl==7.4
+elastic-transport==7.16.0
+elasticsearch==7.17.0
+elasticsearch-dsl==7.4.0
+pillow==11.2.1
+python-dateutil==2.9.0.post0
+six==1.17.0
+soupsieve==2.7
+sqlparse==0.5.3
+typing_extensions==4.13.2
+urllib3==1.26.20

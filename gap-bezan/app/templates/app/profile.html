@@ -1,0 +1,163 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="feed-container">
+        <div class="row bg-white p-4 rounded shadow-sm">
+            <div class="col-md-3 text-center">
+                <img src="{{ user_profileo.profileimg.url }}" alt="{{ user_object.username }}"
+                    class="img-fluid rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+            </div>
+            <div class="col-md-9">
+                <h2 class="mb-1">{{ user_object.username }}</h2>
+                <p class="text-muted mb-2">⭐ Posts: {{ user_post_length }}</p>
+                <p class="text-muted mb-2">Joined on {{ user_object.date_joined|date:"F j, Y" }}</p>
+                <p class="mb-2">Gender: {{ user_profileo.gender }}</p>
+                <p>{{ user_profileo.bio }}</p>
+
+                {% if user_object.username != request.user.username %}
+                    <form action="{% url 'follow' %}" method="POST" class="follow-button">
+                        {% csrf_token %}
+                        <input type="hidden" name="follower" value="{{ request.user.username }}">
+                        <input type="hidden" name="user" value="{{ user_object.username }}">
+                        <button type="submit" class="btn btn-outline-primary">{{ button_text }}</button>
+                    </form>
+                {% endif %}
+
+                <div class="mt-3 text-muted">
+                    <span>{{ user_followers }} Followers</span> • <span>Following {{ user_following }}</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="bg-white p-4 rounded shadow-sm">
+            <h4>Recent Posts</h4>
+            <ul class="list-group list-group-flush">
+            {% for post in user_posts reversed %}
+                <div class="feed-card">
+
+                    <div class="user-detail">
+
+                        <div class="user-part">
+
+                            <a href="{% url 'profile' post.user %}" class="user-img">
+                                <img src="{{ user_profileo.profileimg.url }}" alt="">
+                            </a>
+                            <div class="user-info">
+                                <h2 class="username">{{ post.user }}</h2>
+                                <p class="post-time">{{ post.crated_at|date:"F j, Y, g:i a" }}</p>
+                            </div>
+
+                        </div>
+                        <div class="report-menu">
+                            <img class="report-icon" src="{% static 'images/ellipsis.svg' %}" alt="">
+                            <div class="report-popup">
+                                
+                                    <ul>
+                                        {% if user_object.username == request.user.username %}
+                                            <li><a href="{% url 'delete' pk=post.id %}">Delete</a>
+                                        {% endif %}
+                                    </ul>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                
+
+                    <div class="user-text">
+                        <p class="user-text-paragraph post-text">
+                            {{ post.caption }}
+                        
+                        </p>
+                    </div>
+
+                    {% if post.image %}
+                    <div class="post-image" style="margin-top: 10px;">
+                        <img src="{{ post.image.url }}" alt="Post Image" style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 8px;">
+                    </div>
+                    {% endif %}
+
+                    <div class="user-feedback" style="justify-content: space-around; border-top: 1px solid var(--accent-color-3); padding-top: 15px;">
+                        <div class="user-feedback">
+                            <div class="post-engage">
+                                <div class="post-engage">
+                                    <form method="post" action="{% url 'like-post' %}" class="vote-form">
+                                        {% csrf_token %}
+                                        <button type="submit" name="post_id" value="{{ post_data.post.id }}" class="upvote-btn">
+                                            <i class="ri-arrow-up-line"></i> <!-- Upvote icon -->
+                                        </button>
+                                        
+                                        <p class="post-like-num">{{ post.no_of_like }}</p>
+                                    
+                                        <button type="submit" name="post_id" value="{{ post.id }}" class="downvote-btn">
+                                            <i class="ri-arrow-down-line"></i> <!-- Downvote icon -->
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="post-engage post-comment">
+                                <i class="ri-chat-4-line comment-icon"></i>
+                                <p class="post-comment-num">{{ post.comments.all|length }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-comments-box">
+                        <div class="comments-box">
+                            <div class="comments-list">
+
+                                {% for comment in post.comments.all %}
+                                <div class="comment">
+                                    <div class="comment-header">
+                                        {% comment %} <img src="{{ comment.profile_picture.url }}" alt="{{ comment.user.username }}" class="comment-profile-img"> {% endcomment %}
+                                        <p class="comment-id">{{ comment.user.username }}</p>
+                                    </div>
+                                    <p class="comment-text">{{ comment.content }}</p>
+
+                                    <!-- Reply section -->
+                                    <!-- <div class="replies">
+                                        {% for reply in comment.replies.all %}
+                                        <div class="reply">
+                                            <div class="reply-header">
+                                                {% comment %} <img src="{{ reply.profile_picture.url }}" alt="{{ reply.user.username }}" class="reply-profile-img"> {% endcomment %}
+                                                <p class="reply-id">{{ reply.user.username }}</p>
+                                            </div>
+                                            <p class="reply-text">{{ reply.content }}</p>
+                                        </div>
+                                        {% endfor %}
+                                    </div> -->
+
+                                    <!-- Reply form -->
+                                    <!-- <div class="reply-input-box">
+                                        <textarea placeholder="Write a reply..." name="reply_content" id="reply-input-{{ comment.id }}"></textarea>
+                                        <button id="send-reply" data-comment-id="{{ comment.id }}">Reply</button>
+                                    </div> -->
+                                </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <!-- Comment form -->
+                            <div class="comment-input-box">
+                                <form method="POST" action="{% url 'create_comment' post.id %}">
+                                    {% csrf_token %}
+                                    <textarea name="content" id="comment-input-{{ .post.id }}" placeholder="Write a comment..."></textarea>
+                                    <button type="submit" id="send-comment" data-post-id="{{ post.id }}">Send</button>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div> <!-- Close feed-card properly -->
+            {% endfor %}
+            </ul>
+        </div>
+</div>
+{% endblock %}
+

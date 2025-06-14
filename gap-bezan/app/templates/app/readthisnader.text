@@ -1,0 +1,16 @@
+<!-- this is the signup html if you want to use a new css file for sign up create
+    one and then add into head of the html like this 
+    <link rel="stylesheet" href="{% static 'css/yourname.css' %}">
+    and if you want to make a herf link for login use it like this  herf={% url "lgoin" %}
+    like this 
+    what ever herf you wnat to use i made it for you 
+      {% url "profile" %}
+       {% url "home" %}
+        {% url "settings" %}
+         {% url "create" %} -> its for create post 
+    -->
+
+
+------>
+    Hilal Specify the photo URL on the profile settings page so I can add the option to change the profile.
+    

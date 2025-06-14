@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block create %}
+<div class="container">
+    <div class="create-post-container">
+        <div class="profile-box">
+            <img src="{{user_profile.profileimg.url}}" alt="Profile Picture" class="profile-pic">
+            <span class="username">{{ user.username }}</span>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <textarea id="post-textarea" name="caption" placeholder="What's on your mind?" required
+                class="post-textarea"></textarea>
+
+            <button type="submit" class="submit-btn">Post</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+
+{% extends "app/base.html" %}
+
+{% block profile %}
+
+<div class="container profile-container">
+    <div class="profile-settings">
+        <h2 class="profile-title">Your Profile</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="setting-row">
+                <label>Your Picture:</label>
+                <div class="profile-pic-box">
+                    <img src="{{user_profile.profileimg.url}}" alt="Profile Picture" class="profile-pic">
+                    
+                </div>
+                <input type="file" name="image" class="">
+            </div>
+
+            <div class="setting-row">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" placeholder="Write something about yourself..."></textarea>
+            </div>
+
+            <div class="setting-row">
+                <label>Your Username:</label>
+                <p class="info-text">{{request.user.username}}</p>
+            </div>
+
+            <div class="setting-row">
+                <label>Your Email:</label>
+                <p class="info-text">{{user_objects.email}}</p>
+            </div>
+
+            <div class="setting-row">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Where are you from?">
+            </div>
+
+            <div class="setting-row">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="">Select...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

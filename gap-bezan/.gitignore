@@ -1,0 +1,17 @@
+# cache 
+__pycache__/
+*.py[cod]
+
+# Env
+.wilson
+
+# configs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log

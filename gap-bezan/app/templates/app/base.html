@@ -1,0 +1,123 @@
+
+<!-- templates/your_app/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My Site{% endblock %}</title>
+
+    <!-- Load static files -->
+    {% load static %}
+
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+
+</head>
+
+<body>
+
+    <!-- Common Header -->
+    <header class="navbar">
+        <div class="navbar__left">
+            <a href="{% url "home" %}" class="logo">Gap Bezan</a>
+        </div>
+
+        <form method="get" action="{% url 'search' %}">
+            <div class="search-box">
+              <img src="{% static 'images/search.svg' %}" alt="Search" />
+              <input type="text" name="searcho" placeholder="Search Posts..." />
+            </div>
+        </form>
+
+        <div class="navbar__right">
+            <a href="{% url "home" %}" class="nav-item">
+                <img src="{% static 'images/panel-top.svg' %}" alt="Feed" />
+                <span>Feed</span>
+            </a>
+            <a href="{% url "following" %}" class="nav-item">
+                <img src="{% static 'images/panel-top.svg' %}" alt="Feed" />
+                <span>following</span>
+            </a>
+            <a href="{% url "create" %}" class="nav-item">
+                <img src="{% static 'images/plus.svg' %}" alt="New Post" />
+                <span>New Post</span>
+            </a>
+
+            <div class="profile-menu">
+                
+                <img class="profile-menu-pic" src="{{user_profile.profileimg.url}}" alt="Profile" />
+            </div>
+        </div>
+
+        <div class="menu-items-desktop">
+            <li>
+                <img class="menu-profile-li" src="{{user_profile.profileimg.url}}" alt="Profile" />
+                <!--add your herf link like this i have writen name of the url in signup html -->
+                <a href="{% url 'profile' request.user.username %}">Your Profile</a>
+            </li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            <li><a href="{% url 'editprofile' %}">Edit profile</a></li>
+            <li><a href="{% url 'most_liked' %}">Most liked</a></li>
+            <li><a href="{% url 'most_trending' %}">Most trending</a></li>
+            
+
+            <li><a href="{% url 'chnagepassword' %}">Chnage password</a></li>
+
+        </div>
+        <div class="nav-menu">
+            <a class="menu-logo">
+                <img src="{% static 'images/menu.svg' %}" alt="Profile" />
+            </a>
+
+            <div class="menu-items">
+                <li>
+                    <img class="menu-profile-li" src="{{user_profile.profileimg.url}}" alt="Profile" />
+                    <!--add your herf link like this i have writen name of the url in signup html -->
+                    <a href="{% url 'editprofile' %}">Your Profile</a>
+                </li>
+                <li><a href="{% url 'login' %}">Log Out</a></li>
+                <li><a href="{% url 'editprofile' %}">Edit profile</a></li>\
+                <li><a href="{% url 'chnagepassword' %}">Chnage password</a></li>
+          
+
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- Page content will be injected here -->
+    {% block content %}
+        {% if messages %}
+        <script>
+            {% for message in messages %}
+                showSimpleToast("{{ message }}");
+            {% endfor %}
+        </script>
+        {% endif %}
+    {% endblock %}
+
+
+    
+    
+    
+
+
+
+    <div id="simple-toast" class="simple-toast"></div>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+
+</html>

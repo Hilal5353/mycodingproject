@@ -1,0 +1,86 @@
+
+/* CSS in static/css/profile.css */
+.profile-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+  .avatar-section {
+    margin-right: 20px;
+  }
+  .avatar-img, .avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #495057;
+  }
+  .info-section .username {
+    margin: 0;
+    font-size: 2rem;
+    color: #343a40;
+  }
+  .info-section .karma,
+  .info-section .member-since,
+  .info-section .bio {
+    margin: 5px 0;
+    color: #6c757d;
+  }
+  .edit-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .edit-button:hover {
+    background: #0056b3;
+  }
+  .follow-info {
+    margin-top: 8px;
+    color: #6c757d;
+  }
+  .post-history-title {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #343a40;
+  }
+  .post-history {
+    list-style: none;
+    padding: 0;
+  }
+  .post-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .post-item:last-child {
+    border-bottom: none;
+  }
+  .post-item a {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+  }
+  .post-item a:hover {
+    text-decoration: underline;
+  }
+  .post-date {
+    margin-left: 10px;
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+  

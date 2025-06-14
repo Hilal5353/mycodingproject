@@ -1,0 +1,142 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+    <div class="feed-search">
+        <div class="search-box-feed">
+            <img src="{% static 'images/search.svg' %}" alt="Search" />
+            <input type="text" placeholder="Search Posts..." />
+        </div>
+    </div>
+
+    <div class="feed-container">
+        {% for post in posts reversed %}
+        <div class="feed-card">
+
+            <div class="user-detail">
+
+                <div class="user-part">
+
+                    <a href="{% url 'profile' post.user %}" class="user-img">
+                        <img src="{{user_profile.profileimg.url}}" alt="">
+                    </a>
+                    <div class="user-info">
+                        <h2 class="username">{{ post.user }}</h2>
+                        <p class="post-time">{{ post.crated_at|date:"F j, Y, g:i a" }}</p>
+                    </div>
+
+                </div>
+                <div class="report-menu">
+                    <img class="report-icon" src="{% static 'images/ellipsis.svg' %}" alt="">
+                    <div class="report-popup">
+                        
+                            <ul>
+                               <li><a href="{% url 'delete' post.id %}">Delete</a>
+                            </ul>
+                        
+                    </div>
+                </div>
+
+            </div>
+         
+
+            <div class="user-text">
+                <p class="user-text-paragraph post-text">
+                    {{ post.caption }}
+                  
+                </p>
+            </div>
+
+            {% if post_data.post.image %}
+            <div class="post-image" style="margin-top: 10px;">
+                <img src="{{post.image.url }}" alt="Post Image" style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 8px;">
+            </div>
+            {% endif %}
+
+            <div class="user-feedback" style="justify-content: space-around; border-top: 1px solid var(--accent-color-3); padding-top: 15px;">
+                <div class="user-feedback">
+                    <div class="post-engage">
+                        <div class="post-engage">
+                            <form method="post" action="{% url 'like-post' %}" class="vote-form">
+                                {% csrf_token %}
+                                <button type="submit" name="post_id" value="{{ post.id }}" class="upvote-btn">
+                                    <i class="ri-arrow-up-line"></i> <!-- Upvote icon -->
+                                </button>
+                                
+                                <p class="post-like-num">{{ post.no_of_like }}</p>
+                            
+                                <button type="submit" name="post_id" value="{{ post.id }}" class="downvote-btn">
+                                    <i class="ri-arrow-down-line"></i> <!-- Downvote icon -->
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="post-engage post-comment">
+                        <i class="ri-chat-4-line comment-icon"></i>
+                        <p class="post-comment-num">{{ post.comments.all|length }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-comments-box">
+                <div class="comments-box">
+                    <div class="comments-list">
+
+                        {% for comment in post.comments.all %}
+                        <div class="comment">
+                            <div class="comment-header">
+                                {% comment %} <img src="{{ comment.profile_picture.url }}" alt="{{ comment.user.username }}" class="comment-profile-img"> {% endcomment %}
+                                <p class="comment-id">{{ comment.user.username }}</p>
+                            </div>
+                            <p class="comment-text">{{ comment.content }}</p>
+
+                            <!-- Reply section -->
+                            <div class="replies">
+                                {% for reply in comment.replies.all %}
+                                <div class="reply">
+                                    <div class="reply-header">
+                                        {% comment %} <img src="{{ reply.profile_picture.url }}" alt="{{ reply.user.username }}" class="reply-profile-img"> {% endcomment %}
+                                        <p class="reply-id">{{ reply.user.username }}</p>
+                                    </div>
+                                    <p class="reply-text">{{ reply.content }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Reply form -->
+                            <div class="reply-input-box">
+                                <textarea placeholder="Write a reply..." name="reply_content" id="reply-input-{{ comment.id }}"></textarea>
+                                <button id="send-reply" data-comment-id="{{ comment.id }}">Reply</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Comment form -->
+                    <div class="comment-input-box">
+                        <form method="POST" action="{% url 'create_comment' post.id %}">
+                            {% csrf_token %}
+                            <textarea name="content" id="comment-input-{{ post.id }}" placeholder="Write a comment..."></textarea>
+                            <button type="submit" id="send-comment" data-post-id="{{ post.id }}">Send</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div> <!-- Close feed-card properly -->
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- new post button -->
+<a href="{% url 'create' %}" class="new-post-btn">
+    <h1>+</h1>
+</a>
+
+{% endblock %}

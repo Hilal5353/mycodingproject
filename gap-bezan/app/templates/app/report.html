@@ -1,0 +1,90 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background: #f2f2f2;
+    font-family: sans-serif;
+  }
+
+  .report-box {
+    max-width: 600px;
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    color: #333;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .report-box h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    margin-bottom: 20px;
+    resize: vertical;
+  }
+
+  textarea:focus {
+    border-color: orange;
+    outline: none;
+    box-shadow: 0 0 5px orange;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 10px 25px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .btn-danger {
+    background: orange;
+    color: white;
+    margin-right: 10px;
+  }
+
+  .btn-danger:hover {
+    background: darkorange;
+  }
+
+  .btn-secondary {
+    background: #eee;
+    color: #555;
+  }
+
+  .btn-secondary:hover {
+    background: #ddd;
+  }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="report-box">
+    <h2>Report Post</h2>
+    <p>Let us know why you're reporting this post.</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      <textarea
+        name="reason"
+        rows="5"
+        placeholder="Write your reason here..."
+        required
+      ></textarea>
+      <br />
+      <button type="submit" class="btn btn-danger">Report</button>
+      <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

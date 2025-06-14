@@ -1,0 +1,282 @@
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url(../fonts/Vazirmatn-VariableFont_wght.ttf) format('ttf');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+:root {
+    --light-mode-bg: #ffffff;
+    --text-main-color: #111111;
+    --accent-color-1: #D72638;
+    --accent-color-2: #F2F2F2;
+    --accent-color-3: #4C4C4C;
+
+    --font-size-body: 16px;
+    --font-size-user-name: 17px;
+    --font-size-subtitle: 11px;
+    --font-size-page-title: 24px;
+    --font-size-button: 15px;
+
+    --radius-8: 8px;
+
+}
+
+body {
+    background-color: var(--light-mode-bg);
+    font-family: "Vazirmatn", sans-serif;
+    color: var(--text-main-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.create-post-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 130px auto;
+    padding: 20px;
+    background: var(--light-mode-bg);
+    border-radius: var(--radius-8);
+    /* border: 1px solid var(--accent-color-3); */
+}
+
+.create-post-container h2 {
+    font-size: var(--font-size-page-title);
+}
+
+.profile-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-box .profile-pic {
+    width: 40px;
+    height: 40px;
+}
+
+.profile-box .username {
+    font-size: var(--font-size-user-name);
+    margin-left: 15px;
+}
+
+.post-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 24px;
+    font-size: var(--font-size-body);
+    border-radius: var(--radius-8);
+    border: 1px solid var(--accent-color-3);
+    resize: vertical;
+    outline: none;
+    font-family: "Vazirmatn", sans-serif;
+}
+
+.post-textarea:focus {
+    border-color: var(--accent-color-1);
+}
+
+.submit-btn {
+    margin-top: 12px;
+    padding: 10px 45px;
+    font-size: var(--font-size-button);
+    border: none;
+    border-radius: var(--radius-8);
+    background-color: var(--accent-color-1);
+    color: var(--light-mode-bg);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--accent-color-3);
+}
+
+
+
+
+/* profile  */
+
+.profile-settings {
+    width: 100%;
+    margin-top: 130px;
+    padding: 1rem;
+    text-align: center;
+    font-family: "Vazirmatn", sans-serif;
+}
+
+.profile-settings h2 {
+    font-size: var(--font-size-page-title);
+    margin-bottom: 2rem;
+    color: var(--text-main-color);
+}
+
+.settings-box {
+    border-radius: var(--radius-8);
+    padding: 2.5rem 0;
+    background-color: #fff;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.setting-row label {
+    font-weight: 600;
+    width: 35%;
+    text-align: left;
+    font-size: var(--font-size-body);
+    color: var(--accent-color-3);
+    margin-left: 10px;
+}
+
+.setting-row textarea,
+.setting-row input,
+.setting-row select {
+    width: 60%;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--accent-color-2);
+    background-color: var(--light-mode-bg);
+    font-family: "Vazirmatn", sans-serif;
+    font-size: var(--font-size-body);
+    outline: none;
+}
+
+.setting-row textarea:focus,
+.setting-row input:focus,
+.setting-row select:focus {
+    outline: none;
+}
+
+.profile-pic-box {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.file-input {
+    display: none; /* مخفی کردن input واقعی */
+}
+
+.file-label {
+    color: var(--text-main-color);
+    cursor: pointer;
+}
+
+.info-text {
+    font-weight: 600;
+    color: var(--accent-color-3);
+    font-size: var(--font-size-body);
+}
+
+.save-btn {
+    margin-top: 2rem;
+    background-color: var(--accent-color-1);
+    color: var(--light-mode-bg);
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: var(--radius-8);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: var(--font-size-button);
+    transition: background-color 0.2s ease;
+}
+
+.logout-btn {
+    margin-top: 10px;
+    background-color: var(--accent-color-3);
+    color: var(--light-mode-bg);
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: var(--radius-8);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: var(--font-size-button);
+    transition: background-color 0.2s ease;
+}
+
+.logout-btn a {
+    text-decoration: none;
+    color: var(--light-mode-bg);
+}
+
+.save-btn:hover {
+    background-color: var(--accent-color-3);
+}
+
+.logout-btn:hover {
+    background-color: var(--accent-color-1);
+}
+
+@media (max-width: 380px) {
+    .profile-settings {
+        width: 105%;
+    }
+
+    .setting-row label {
+        font-size: 13px;
+    }
+
+    .info-text {
+        font-size: 13px;
+    }
+
+    .setting-row textarea,
+    .setting-row input,
+    .setting-row select {
+        font-size: 13px;
+    }
+
+}
+
+
+/* new-post-btn  */
+.new-post-btn {
+    display: none;
+}
+
+@media (max-width: 830px) {
+    .new-post-btn {
+        position: fixed;
+        right: 40px;
+        bottom: 40px;
+        background: var(--accent-color-1);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--light-mode-bg);
+        font-size: var(--font-size-button);
+        border-radius: 50%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+}

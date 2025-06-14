@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login to Gap Bezan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        {% static "css/login.css" %}
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Login to Gap Bezan</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Email or Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            {% for message in messages %}
+                <h5>{{ message }}</h5>
+            {% endfor %}
+            <button type="submit">Login</button>
+        </form>
+        <div class="note">Quick login with email and password</div>
+        <div class="note">Don’t have an account? <a href="{% url 'signup' %}">Sign up</a></div>
+    </div>
+</body>
+
+</html>
