@@ -4,25 +4,24 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login as auth_login
-from .models import Todo
+from .models import Todo, Ai_todo_steps
 from django.contrib.auth.decorators import login_required
-# Create your views here.
-@login_required
+import ollama
+
+from .tasks import generate_todo_steps
+
+@login_required 
 def home(request):
-    # Check if 'q' parameter is present in the GET request for search functionality
     if 'q' in request.GET:
         q = request.GET['q']
-        # Filter the Todo items based on the search query
         all_todo = Todo.objects.filter(todo_name__icontains=q, user=request.user)
-        # Render the search results template
         return render(request, "core/search_results.html", {'todos': all_todo, 'query': q})
-    
-    # Handle POST request for adding new Todo item
+
     if request.method == 'POST':
         task = request.POST.get("task")
         if task:
-            new_todo = Todo(user=request.user, todo_name=task)
-            new_todo.save()
+            generate_todo_steps.delay(task, request.user.id)
+            
 
     # Retrieve all Todo items for the user
     all_todo = Todo.objects.filter(user=request.user)
@@ -32,8 +31,8 @@ def home(request):
 
 
 
-def delete(request, name):
-    todo = Todo.objects.get(user=request.user, todo_name=name)
+def delete(request, id):
+    todo = Todo.objects.get(user=request.user, id=id)
     todo.delete()
     return redirect('home-page')
 
@@ -82,8 +81,8 @@ def progres(request):
     return render(request, 'core/prossec.html', {'process': process})
 
 
-def update(request, name):
-    get_todo = Todo.objects.get(user=request.user, todo_name=name)
+def update(request, id):
+    get_todo = Todo.objects.get(user=request.user, id=id)
     get_todo.status = True
     get_todo.save()
     return redirect('home-page')

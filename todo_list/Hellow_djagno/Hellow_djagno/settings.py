@@ -99,6 +99,7 @@ DATABASES = {
     }
 }
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -129,7 +130,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
+LOGIN_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -139,4 +140,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR  / 'media'
 #LOGIN_REDIRECT_URL = "/shoppage/"
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-LOGIN_URL = 'login'

@@ -68,17 +68,28 @@
                                   <tbody>
                                       {% for i in todos %}
                                       <tr>
-                                          <td>{{ i.todo_name }}</td>
+                                            <td>
+                                                <strong>{{ i.todo_name }}</strong>
+                                                {% if i.steps %}
+                                                    <ul class="mt-2">
+                                                    
+                                                    {% for step in i.steps %}
+                                                        <li>{{ step }}</li>
+                                                    {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                                
+                                            </td>
                                           {% if i.status %}
                                           <td class="text-success">Completed</td>
                                           {% else %}
                                           <td class="text-warning">In progress</td>
                                           {% endif %}
                                           <td>
-                                              <a href="{% url 'delete' i.todo_name %}">
+                                              <a href="{% url 'delete' i.id %}">
                                                   <button type="submit" class="btn btn-danger">Delete</button>
                                               </a>
-                                              <a href="{% url 'update' i.todo_name %}">
+                                              <a href="{% url 'update' i.id %}">
                                                   <button type="submit" class="btn btn-success ms-1">Finished</button>
                                               </a>
                                           </td>
